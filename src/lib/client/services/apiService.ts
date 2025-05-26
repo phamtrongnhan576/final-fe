@@ -176,7 +176,10 @@ export async function updateAvatar(data: File): Promise<User> {
   }
 }
 
-export async function updateUserProfile(data: UpdateUser, id: string): Promise<UpdateUser> {
+export async function updateUserProfile(
+  data: UpdateUser,
+  id: string
+): Promise<UpdateUser> {
   try {
     const response = await axiosInstance.put(`/api/users/${id}`, data);
     return response.data.content;
@@ -217,17 +220,16 @@ export async function signIn(
   }
 }
 
-export async function signUp(
-  data: SignUp
-): Promise<{ token: string; user: User }> {
+export async function signUp(data: SignUp): Promise<{ user: User }> {
   try {
     const response = await axiosInstance.post('/api/auth/signup', data);
 
-    if (response.statusText === 'OK') {
-      const token = response.data.content.token;
-      const user = response.data.content.user;
+    console.log({ response });
 
-      return { token, user };
+    if (response.statusText === 'OK') {
+      const user = response.data.content;
+
+      return { user };
     } else {
       throw new Error(response.data.message || 'Không thể đăng ký');
     }

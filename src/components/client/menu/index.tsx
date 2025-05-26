@@ -55,8 +55,7 @@ export default function Menu() {
     setShowLoginModal(false);
   };
 
-  const handleSignUpSuccess = (data: { token: string; user: UserType }) => {
-    setAuthToken(data.token);
+  const handleSignUpSuccess = (data: { user: UserType }) => {
     setUser(data.user);
     showSuccessToast(tToast('Signup success'));
     setShowSignupModal(false);
