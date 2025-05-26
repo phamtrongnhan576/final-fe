@@ -1,26 +1,26 @@
-import { useState } from "react";
-import { Search, User, Calendar as CalendarIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { cn, formatDate } from "@/lib/utils";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/ui/form";
-import { useRouter } from "next/navigation";
+import { useState } from 'react';
+import { Search, User, Calendar as CalendarIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn, formatDate } from '@/lib/utils';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form } from '@/components/ui/form';
+import { useRouter } from 'next/navigation';
 import {
   showErrorToast,
   showSuccessToast,
-} from "@/lib/client/services/notificationService";
-import { useDispatch, useSelector } from "react-redux";
-import { setSearch } from "@/lib/client/store/slices/searchSlice";
-import { RootState } from "@/lib/client/store/store";
-import { useTranslations } from "next-intl";
-import { createSchemas } from "@/lib/client/validator/validatior";
-import { SearchType } from "@/lib/client/types/types";
-import LocationDialog from "./dialogs/LocationDialog";
-import { CheckInDialog } from "./dialogs/CheckInDialog";
-import { CheckOutDialog } from "./dialogs/CheckOutDialog";
-import { GuestDialog } from "./dialogs/GuestDialog";
-import { SkeletonCard } from "../common/SkeletonCard";
+} from '@/lib/client/services/notificationService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearch } from '@/lib/client/store/slices/searchSlice';
+import { RootState } from '@/lib/client/store/store';
+import { useTranslations } from 'next-intl';
+import { createSchemas } from '@/lib/client/validator/validatior';
+import { SearchType } from '@/lib/client/types/types';
+import LocationDialog from './dialogs/LocationDialog';
+import { CheckInDialog } from './dialogs/CheckInDialog';
+import { CheckOutDialog } from './dialogs/CheckOutDialog';
+import { GuestDialog } from './dialogs/GuestDialog';
+import { SkeletonCard } from '../common/SkeletonCard';
 
 export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
@@ -31,14 +31,14 @@ export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const positions = useSelector((state: RootState) => state.position);
-  const t = useTranslations("Search");
-  const tValidation = useTranslations("ValidationErrors");
+  const t = useTranslations('Search');
+  const tValidation = useTranslations('ValidationErrors');
   const schemas = createSchemas(tValidation);
 
   const form = useForm<SearchType>({
     resolver: zodResolver(schemas.searchSchema),
     defaultValues: {
-      location: "",
+      location: '',
       checkIn: undefined,
       checkOut: undefined,
       guests: 0,
@@ -56,15 +56,15 @@ export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
     dispatch(setSearch(listSearchs));
 
     const selectedPosition = positions.find(
-      (pos) => pos.tenViTri === data.location
+      (pos) => pos.tinhThanh === data.location
     );
 
     if (!selectedPosition || !selectedPosition.tinhThanh) {
-      showErrorToast(t("Search failed!"));
+      showErrorToast(t('Search failed!'));
       return;
     }
 
-    showSuccessToast(t("Searching"));
+    showSuccessToast(t('Searching'));
 
     router.push(`/rooms/${selectedPosition.slug}`);
   };
@@ -80,7 +80,7 @@ export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
 
     if (errorMessages.length > 0) {
       errorMessages.forEach((msg) => {
-        showErrorToast(msg || t("Unknown error"));
+        showErrorToast(msg || t('Unknown error'));
       });
     }
   };
@@ -101,22 +101,22 @@ export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
               type="button"
               variant="ghost"
               className={cn(
-                "h-full flex-1 rounded-full px-4 py-2 text-left transition-all hover:bg-gray-100 hover:shadow-md dark:hover:bg-gray-700 cursor-pointer",
-                (form.watch("location") ||
-                  form.watch("checkIn") ||
-                  form.watch("checkOut")) &&
-                  "font-medium"
+                'h-full flex-1 rounded-full px-4 py-2 text-left transition-all hover:bg-gray-100 hover:shadow-md dark:hover:bg-gray-700 cursor-pointer',
+                (form.watch('location') ||
+                  form.watch('checkIn') ||
+                  form.watch('checkOut')) &&
+                  'font-medium'
               )}
               onClick={() => setShowLocationModal(true)}
             >
               <div className="ml-2 flex w-full flex-col">
                 <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
-                  {t("Location")}
+                  {t('Location')}
                 </span>
                 <div className="flex items-center gap-2">
                   <Search className="text-gray-500 dark:text-gray-400" />
                   <span className="truncate text-sm text-gray-800 dark:text-gray-200">
-                    {form.watch("location") || t("Where are you going?")}
+                    {form.watch('location') || t('Where are you going?')}
                   </span>
                 </div>
               </div>
@@ -132,14 +132,14 @@ export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
             >
               <div className="ml-2 flex w-full flex-col">
                 <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
-                  {t("Check in")}
+                  {t('Check in')}
                 </span>
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="text-gray-500 dark:text-gray-400" />
                   <span className="text-sm text-gray-800 dark:text-gray-200">
-                    {form.watch("checkIn")
-                      ? formatDate(form.watch("checkIn"))
-                      : t("Add date")}
+                    {form.watch('checkIn')
+                      ? formatDate(form.watch('checkIn'))
+                      : t('Add date')}
                   </span>
                 </div>
               </div>
@@ -155,14 +155,14 @@ export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
             >
               <div className="ml-2 flex w-full flex-col">
                 <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
-                  {t("Check out")}
+                  {t('Check out')}
                 </span>
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="text-gray-500 dark:text-gray-400" />
                   <span className="text-sm text-gray-800 dark:text-gray-200">
-                    {form.watch("checkOut")
-                      ? formatDate(form.watch("checkOut"))
-                      : t("Add date")}
+                    {form.watch('checkOut')
+                      ? formatDate(form.watch('checkOut'))
+                      : t('Add date')}
                   </span>
                 </div>
               </div>
@@ -178,14 +178,14 @@ export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
             >
               <div className="ml-2 flex w-full flex-col">
                 <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
-                  {t("Guests")}
+                  {t('Guests')}
                 </span>
                 <div className="flex items-center gap-2">
                   <User className="text-gray-500 dark:text-gray-400" />
                   <span className="text-sm text-gray-800 dark:text-gray-200">
-                    {form.watch("guests") > 0
-                      ? `${form.watch("guests")} ${t("Guests")}`
-                      : t("Add guests")}
+                    {form.watch('guests') > 0
+                      ? `${form.watch('guests')} ${t('Guests')}`
+                      : t('Add guests')}
                   </span>
                 </div>
               </div>
@@ -196,7 +196,7 @@ export default function SearchPanel({ isLoading }: { isLoading: boolean }) {
               className="flex cursor-pointer items-center gap-2 rounded-full bg-rose-600 py-6 text-white hover:bg-rose-700 hover:shadow-md dark:bg-rose-700 dark:hover:bg-rose-800"
             >
               <Search className="text-white" />
-              <span className="font-medium">{t("Search")}</span>
+              <span className="font-medium">{t('Search')}</span>
             </Button>
 
             <LocationDialog

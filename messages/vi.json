@@ -70,7 +70,8 @@
     "Check-in date": "Ngày nhận phòng",
     "Check-out date": "Ngày trả phòng",
     "Number of guests": "Số khách",
-    "No results": "Không có kết quả"
+    "No results": "Không có kết quả",
+    "Search failed!": "Tìm kiếm thất bại!"
   },
   "FilterRoom": {
     "Accommodation type": "Loại nơi ở",
@@ -172,6 +173,7 @@
     "ironing_board": "Bàn ủi"
   },
   "RoomDetail": {
+    "commentSuccess": "Bình luận thành công",
     "superhost": "Chủ nhà siêu cấp",
     "roomImageAlt": "Hình ảnh phòng {index}",
     "entireApartment": "Toàn bộ căn hộ. Chủ nhà",

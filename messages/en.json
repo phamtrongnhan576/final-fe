@@ -70,7 +70,8 @@
     "Check-in date": "Check-in date",
     "Check-out date": "Check-out date",
     "Number of guests": "Number of guests",
-    "No results": "No results"
+    "No results": "No results",
+    "Search failed!": "Search failed!"
   },
   "FilterRoom": {
     "Accommodation type": "Accommodation type",
@@ -172,6 +173,7 @@
     "ironing_board": "Ironing board"
   },
   "RoomDetail": {
+    "commentSuccess": "Comment successfully",
     "superhost": "Superhost",
     "roomImageAlt": "Room image {index}",
     "entireApartment": "Entire apartment. Host",

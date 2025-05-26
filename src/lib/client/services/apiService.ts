@@ -140,13 +140,12 @@ export async function getCoordinatesByCity(city: string): Promise<Coordinates> {
   }
 }
 
-export async function createComment(data: PostComment): Promise<void> {
+export async function createComment(data: PostComment): Promise<PostComment> {
   try {
     if (!data) throw new Error('Dữ liệu bình luận không hợp lệ');
     const response = await axiosInstance.post(`/api/binh-luan`, data);
-    if (response.statusText !== 'OK') {
-      throw new Error(response.data.message || 'Không thể gửi bình luận');
-    }
+
+    return response.data.content;
   } catch (error) {
     throw error;
   }
@@ -223,8 +222,6 @@ export async function signIn(
 export async function signUp(data: SignUp): Promise<{ user: User }> {
   try {
     const response = await axiosInstance.post('/api/auth/signup', data);
-
-    console.log({ response });
 
     if (response.statusText === 'OK') {
       const user = response.data.content;

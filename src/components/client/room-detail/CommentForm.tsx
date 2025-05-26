@@ -16,6 +16,7 @@ import { createComment } from '@/lib/client/services/apiService';
 import {
   handleApiError,
   showErrorToast,
+  showSuccessToast,
 } from '@/lib/client/services/notificationService';
 import { AxiosError } from 'axios';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
@@ -55,7 +56,11 @@ export default function CommentForm({ id }: { id: number }) {
         noiDung: data.noiDung,
         saoBinhLuan: data.saoBinhLuan,
       };
-      await createComment(formattedData);
+      const res = await createComment(formattedData);
+      if (res) {
+        showSuccessToast(t('commentSuccess'));
+        window.location.reload();
+      }
     } catch (error) {
       if (error instanceof AxiosError && error?.status === 403) {
         showErrorToast(tValidation('needLogin'));

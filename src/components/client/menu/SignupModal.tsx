@@ -65,7 +65,6 @@ export default function SignupModal({
 
   const { trigger: signUpTrigger, isMutating: isSignUpPending } =
     useApiMutation('signUp', async (data: SignUp) => {
-      console.log({ data });  
       const res = await signUp(data);
       return res;
     });
@@ -78,8 +77,6 @@ export default function SignupModal({
       };
 
       const res = await signUpTrigger(formattedData);
-
-      console.log({ res });
 
       if (res.user) {
         onSuccess(res);
